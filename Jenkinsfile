@@ -3,38 +3,46 @@ pipeline {
  
     tools {
         maven 'Maven3'
+        jdk  'jdk21'
     }
  
     stages {
  
         stage('Checkout') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/kashifakhtar34/Cucumber_BBD.git'
+                git branch: 'main', url: 'https://github.com/kashifakhtar34/Cucumber_BBD.git'
             }
         }
  
         stage('Build') {
             steps {
-                bat 'mvn clean'
+                dir('Cucumber_BBD') {
+                    bat 'mvn clean'
+                }
             }
         }
  
         stage('Compile') {
             steps {
-                bat 'mvn compile'
+                dir('Cucumber_BBD') {
+                    bat 'mvn compile'
+                }
             }
         }
  
         stage('Test') {
             steps {
-                bat 'mvn test'
+                dir('Cucumber_BBD') {
+                    bat 'mvn test'
+                }
             }
         }
  
         stage('Package') {
             steps {
-                bat 'mvn package'
+                dir('Cucumber_BBD') {
+                    bat 'mvn package'
+                }
             }
         }
     }
